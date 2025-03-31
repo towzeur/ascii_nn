@@ -237,14 +237,16 @@ def benchmark(n: int, sec=1):
         arr = Captcha.word_2_array(text)
         arr_aug = Captcha.random_augment(arr)
 
-        sample = array_to_source(arr_aug)
-        img = source_to_array(sample)  # numpy (H, W) [0, 255]
+        # convert to numpy and source format (string)
+        img = np.array(arr_aug, dtype=np.uint8) * 255
+        #img = source_to_array(arr_aug)  # numpy (H, W) [0, 255]
         # print(img.shape)
+        source: str = array_to_source(arr_aug)
 
         if 0:
             # save to "sample/{text}.txt"
             with open(f"samples/{text}.txt", "w") as f:
-                f.write(sample)
+                f.write(source)
 
         if 0:
             # save to "sample/{text}.png"
